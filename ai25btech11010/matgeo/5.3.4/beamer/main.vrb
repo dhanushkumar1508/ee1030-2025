@@ -1,0 +1,23 @@
+\frametitle{Python code -Ploting the plane using c function}
+	\begin{lstlisting}
+
+plt.figure(figsize=(8,6))
+plt.plot(x_vals, y1, label=f'Equation 1: {a}x - {b}y + ({a+4*b})=0')
+plt.plot(x_vals, y2, label=f'Equation 2: {b}x + {a}y + ({b-4*a})=0')
+plt.scatter(x_val, y_val, color='red', s=100, label=f'Solution ({x_val:.2f}, {y_val:.2f})')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title("Solution of 2x2 Linear System using C Function")
+plt.legend()
+plt.grid(True)
+
+# Save figure
+fig_path = os.path.join("../figs", "equations_solution1.png")
+plt.savefig(fig_path, dpi=300)
+print(f"Figure saved at: {fig_path}")
+
+plt.show()
+
+
+
+\end{lstlisting}
