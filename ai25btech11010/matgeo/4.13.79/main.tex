@@ -1,0 +1,97 @@
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+\usepackage{tfrupee}
+
+\setlength{\headheight}{1cm}
+\setlength{\headsep}{0mm}
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide}
+
+\graphicspath{{./figs/}}
+
+\begin{document}
+\title{4.13.79}
+\author{AI25BTECH11010 - Dhanush Kumar}
+\maketitle
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+
+\textbf{Question}\\
+
+In $\mathbb{R}^3$, let $L$ be a straight line passing through the origin. Suppose that all the points on $L$ are at a constant distance from two planes:$
+P_1 : x+2y-z+1=0, 
+P_2 : 2x-y+z-1=0.$
+Let $M$ be the locus of the feet of the perpendicular drawn from the points on $L$ to the plane $P_1$. Which of the following points lie(s) on $M$?
+
+\begin{enumerate}
+\item $\myvec{0\\ -\tfrac{5}{6}\\ -\tfrac{2}{3}}$
+\item $\myvec{-\tfrac{1}{6}\\ -\tfrac{1}{3}\\ \tfrac{1}{6}}$
+\item $\myvec{-\tfrac{5}{6}\\ 0\\ \tfrac{2}{3}}$
+\item $\myvec{-\tfrac{1}{3}\\ 0\\ \tfrac{2}{3}}$
+\end{enumerate}
+
+\textbf{Solution}\\
+
+Step 1: Direction vector of $L$
+\begin{align}
+\vec{r}_L(t) &= t \vec{D}, \\
+\vec{n}_1 &= \myvec{1\\2\\-1}, & \vec{n}_2 &= \myvec{2\\-1\\1}, \\
+\vec{n}_1^T \vec{D} &= 0, & \vec{n}_2^T \vec{D} &= 0.
+\end{align}
+
+\begin{align}
+	\myvec{\vec{n}_1 && \vec{n}_2}^T \vec{D} &= 0, \\
+\vec{D} &= \myvec{1\\-3\\-5}, \\
+\vec{r}_L(t) &= t \vec{D}.
+\end{align}
+
+Step 2: Foot of perpendicular to $P_1$
+\begin{align}
+\vec{r}_M &= \vec{r}_L(t) + \lambda \vec{n}_1, \\
+&= t \vec{D} + \lambda \myvec{1\\2\\-1}, \\
+\vec{n}_1^T \vec{r}_M + 1 &= 0, \\
+\vec{n}_1^T \bigl( t \vec{D} + \lambda \myvec{1\\2\\-1} \bigr) + 1 &= 0, \\
+\vec{n}_1^T \vec{r}_L(t) &= 1\cdot t + 2(-3t) + (-1)(-5t) = 0, \\
+\vec{n}_1^T \vec{n}_1 &= 1^2 + 2^2 + (-1)^2 = 6, \\
+6 \lambda + 1 &= 0 \;\Rightarrow\; \lambda = -\tfrac{1}{6}, \\
+\vec{r}_M &= t \vec{D} - \tfrac{1}{6} \myvec{1\\2\\-1}, \\
+\vec{r}_M &= \myvec{t-\tfrac{1}{6}\\ -3t-\tfrac{1}{3}\\ -5t+\tfrac{1}{6}}.
+\end{align}
+
+Step 3: Checking the options
+\begin{align}
+\text{Option (a):} \quad 
+\myvec{0\\ -\tfrac{5}{6}\\ -\tfrac{2}{3}} &= \myvec{t-\tfrac{1}{6}\\ -3t-\tfrac{1}{3}\\ -5t+\tfrac{1}{6}} 
+\;\Rightarrow\; t = \tfrac{1}{6}, \quad \text{lies on $M$},\\[2mm]
+\text{Option (b):} \quad
+\myvec{-\tfrac{1}{6}\\ -\tfrac{1}{3}\\ \tfrac{1}{6}} &= \myvec{t-\tfrac{1}{6}\\ -3t-\tfrac{1}{3}\\ -5t+\tfrac{1}{6}} 
+\;\Rightarrow\; t = 0, \quad \text{lies on $M$},\\[2mm]
+\text{Option (c):} \quad
+\myvec{-\tfrac{5}{6}\\ 0\\ \tfrac{2}{3}} &= \myvec{t-\tfrac{1}{6}\\ -3t-\tfrac{1}{3}\\ -5t+\tfrac{1}{6}} 
+\;\Rightarrow\; t=-\tfrac{2}{3}, \quad y = \tfrac{5}{3} \neq 0, \quad \text{does not lie on $M$},\\[2mm]
+\text{Option (d):} \quad
+\myvec{-\tfrac{1}{3}\\ 0\\ \tfrac{2}{3}} &= \myvec{t-\tfrac{1}{6}\\ -3t-\tfrac{1}{3}\\ -5t+\tfrac{1}{6}} 
+\;\Rightarrow\; t=-\tfrac{1}{6}, \quad y = \tfrac{1}{6} \neq 0, \quad \text{does not lie on $M$}.
+\end{align}
+
+Final Answer
+\begin{align}
+\vec{r}_M &= \myvec{t-\tfrac{1}{6}\\ -3t-\tfrac{1}{3}\\ -5t+\tfrac{1}{6}}, \quad t \in \mathbb{R}, \\
+\text{Points on $M$} &= \myvec{0\\ -\tfrac{5}{6}\\ -\tfrac{2}{3}}, \;\; \myvec{-\tfrac{1}{6}\\ -\tfrac{1}{3}\\ \tfrac{1}{6}}.
+\end{align}
+
+\end{document}

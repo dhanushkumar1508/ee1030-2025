@@ -1,0 +1,13 @@
+\frametitle{Python code -Ploting the plane using c function}
+	\begin{lstlisting}
+
+ax.set_xlabel('X'); ax.set_ylabel('Y'); ax.set_zlabel('Z')
+ax.set_title("Planes, Line L, Line M, and Points")
+ax.set_xlim(-1.5,1.5); ax.set_ylim(-1.5,1.5); ax.set_zlim(-1.5,1.5)
+ax.view_init(elev=20, azim=40)
+
+plt.savefig("../figs/planes_lines_points_ctypes.png", dpi=300)
+plt.show()
+
+
+\end{lstlisting}
