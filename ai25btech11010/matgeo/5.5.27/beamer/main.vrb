@@ -1,0 +1,16 @@
+\frametitle{Python code -Ploting the plane using c function}
+	\begin{lstlisting}
+
+# Labels
+ax.set_xlabel("X-axis")
+ax.set_ylabel("Y-axis")
+ax.set_zlabel("Z-axis")
+ax.set_title("Solution of 3 Planes")
+ax.legend()
+
+# Save figure
+plt.savefig("../figs/planes_solution1.png", dpi=300)
+plt.show()
+
+
+\end{lstlisting}

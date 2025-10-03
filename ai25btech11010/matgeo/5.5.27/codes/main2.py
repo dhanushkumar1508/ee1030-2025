@@ -79,5 +79,5 @@ ax.set_title("Solution of 3 Planes")
 ax.legend()
 
 # Save figure
-plt.savefig("../figs/planes_solution.png", dpi=300)
+plt.savefig("../figs/planes_solution1.png", dpi=300)
 plt.show()

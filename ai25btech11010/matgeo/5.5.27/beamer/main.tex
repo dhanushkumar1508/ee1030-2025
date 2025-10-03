@@ -75,7 +75,7 @@
 
 
 \title 
-{4.13.79}
+{5.5.27}
 \date{October 3, 2025}
 
 
@@ -87,61 +87,84 @@
 \begin{document}
 \frame{\titlepage}
 \begin{frame}{Question}
-
-Solve the following equations for $x$ and $y$ using cross-multiplication method\\
+\noindent
+Find the product of the matrices 
+$\myvec{
+1 & 2 & -3 \\
+2 & 3 & 2 \\
+3 & -3 & -4
+}
+\myvec{
+-6 & 17 & 13 \\
+14 & 5 & -8 \\
+-15 & 9 & -1
+}$
+and hence solve the system of linear equations:
 $
-(ax - by) + (a + 4b) = 0 \\
-(bx + ay) + (b - 4a) = 0
-$\\
+x + 2y - 3z = -4 \\
+2x + 3y + 2z = 2 \\
+3x - 3y - 4z = 11
+$
+
 
 \end{frame}
 \begin{frame}{Solution}
 
-The system of equations can be written in vector-matrix form as:
+The given matrices are
+
 \begin{align}
-\myvec{a \\ -b}^T\vec{X} &= -a - 4b \\
-\myvec{b \\ a}^T\vec{X} &= 4a - b
+	\vec{A} &= \myvec{1 & 2 & -3 \\ 2 & 3 & 2 \\ -3 & 2 & -4}, &
+	\vec{B} &= \myvec{-6 & 17 & 13 \\ 14 & 5 & -8 \\ -15 & 9 & -1}
 \end{align}
 
-Using Cramer's Rule (matrix method), which is algebraically equal to the cross-multiplication method, the solution is obtained as follows.
+The product of the matrices is computed as
 
-The coefficient matrix and its determinant are:
 \begin{align}
-A &= \myvec{a & -b \\ b & a} \\
-\det(A) &= a^2 + b^2
-\end{align}
-\end{frame}
-\begin{frame}{Solution}
-
-The determinant for the first component of $\vec{X}$ is obtained by replacing the first column with the constants:
-\begin{align}
-A_x &= \myvec{-a-4b & -b \\ 4a - b & a} \\
-\det(A_x) &= (-a-4b)a - (-b)(4a-b) \\
-&= -a^2 - 4ab + 4ab - b^2 \\
-&= -(a^2 + b^2)
-\end{align}
-
-The determinant for the second component of $\vec{X}$ is obtained by replacing the second column with the constants:
-\begin{align}
-A_y &= \myvec{a & -a-4b \\ b & 4a - b} \\
-\det(A_y) &= a(4a-b) - b(-a-4b) \\
-&= 4a^2 - ab + ab + 4b^2 \\
-&= 4(a^2 + b^2)
+	\vec{A}\vec{B} &= \myvec{67 & 0 & 0 \\ 0 & 67 & 0 \\ 0 & 0 & 67} = 67 \vec{I}_3
 \end{align}
 \end{frame}
 \begin{frame}{Solution}
 
-Finally, using Cramer's Rule, the solution vector is:
+The given system of linear equations can be written in matrix form as
+
 \begin{align}
-\vec{X} &= \frac{1}{\det(A)} \myvec{\det(A_x) \\ \det(A_y)} \\
-\vec{X} &= \myvec{-1 \\ 4}
+	\vec{A}\vec{X} &= \vec{C}, \\
+\vec{C} &= \myvec{-4 \\ 2 \\ 1}
 \end{align}
+
+Since $\vec{A}\vec{B} = 67 \vec{I}_3$, the inverse of $\vec{A}$ exists and is given by
+
+\begin{align}
+	\vec{A}^{-1} = \frac{1}{67}\vec{B}
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+
+Multiplying both sides of $A \vec{X} = \vec{C}$ by $\vec{A}^{-1}$, we obtain
+
+\begin{align}
+	\vec{X} &= \vec{A}^{-1} \vec{C} = \frac{1}{67} \vec{B} \vec{C}
+\end{align}
+
+
+\begin{align}
+	\vec{B} \vec{C} &= \myvec{201 \\ -134 \\ 67}
+\end{align}
+\end{frame}
+\begin{frame}{Solution}
+
+Therefore, the solution of the system is
+
+\begin{align}
+\vec{X} &= \frac{1}{67} \myvec{201 \\ -134 \\ 67} = \myvec{3 \\ -2 \\ 1} \\
+\end{align}
+
 
 \end{frame}
 
 \begin{frame}{Plot}
     \centering
-    \includegraphics[width=\columnwidth, height=0.8\textheight, keepaspectratio]{../figs/equations_solution.png}     
+    \includegraphics[width=\columnwidth, height=0.8\textheight, keepaspectratio]{../figs/planes_solution.png}     
 \end{frame}
 
 
@@ -150,23 +173,20 @@ Finally, using Cramer's Rule, the solution vector is:
 \begin{lstlisting}
 import numpy as np
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 import os
 
-# Create folder 'figs' if it doesn't exist
-if not os.path.exists("figs"):
-    os.makedirs("figs")
 
-# Coefficients
-a = float(input("Enter value of a: "))
-b = float(input("Enter value of b: "))
+# ---------- Define matrices ----------
+A = np.array([[1, 2, -3],
+              [2, 3, 2],
+              [3, -3, -4]], dtype=float)
 
-# Coefficient matrix A
-A = np.array([[a, -b],
-              [b, a]])
+B = np.array([[-6, 17, 13],
+              [14, 5, -8],
+              [-15, 9, -1]], dtype=float)
 
-# Constants vector
-B = np.array([- (a + 4*b),
-              4*a - b])
+C = np.array([-4, 2, 11], dtype=float)
 \end{lstlisting}
 \end{frame}
 
@@ -175,22 +195,20 @@ B = np.array([- (a + 4*b),
 \frametitle{Python code - To solve and plot }                
 \begin{lstlisting}
 
+# ---------- Use AB = 67I3 property ----------
+BC = B @ C           # matrix multiplication
+X = (1/67) * BC      # solution vector
 
-# Determinants
-det_A = np.linalg.det(A)
-A_x = np.array([[B[0], -b],
-                [B[1], a]])
-det_Ax = np.linalg.det(A_x)
+print("Solution in matrix form:")
+print(X.reshape(-1, 1))   # column vector
 
-A_y = np.array([[a, B[0]],
-                [b, B[1]]])
-det_Ay = np.linalg.det(A_y)
+# ---------- Plotting ----------
+fig = plt.figure(figsize=(8, 6))
+ax = fig.add_subplot(111, projection="3d")
 
-# Solution
-x = det_Ax / det_A
-y = det_Ay / det_A
-
-print(f"Solution:\nx = {x}\ny = {y}")
+# Create grid for planes
+xx, yy = np.meshgrid(np.linspace(-5, 5, 20),
+                     np.linspace(-5, 5, 20))
 \end{lstlisting}
 \end{frame}
 
@@ -199,14 +217,19 @@ print(f"Solution:\nx = {x}\ny = {y}")
 \frametitle{Python code - To solve and plot }                
 \begin{lstlisting}
 
-# Plotting
-x_vals = np.linspace(x-5, x+5, 400)
+# Plane 1: x + 2y - 3z = -4  -> z = (x + 2y + 4)/3
+z1 = (xx + 2*yy + 4)/3
 
-# Equation 1: (ax - by) + (a+4b)=0 -> y = (ax + a+4b)/b
-y1 = (a*x_vals + (a + 4*b)) / b
+# Plane 2: 2x + 3y + 2z = 2  -> z = (2 - 2*xx - 3*yy)/2
+z2 = (2 - 2*xx - 3*yy)/2
 
-# Equation 2: (bx + ay) + (b-4a)=0 -> y = -(b*x_vals + b-4a)/a
-y2 = -(b*x_vals + (b - 4*a)) / a
+# Plane 3: 3x - 3y - 4z = 11 -> z = (3*xx - 3*yy - 11)/4
+z3 = (3*xx - 3*yy - 11)/4
+
+# Plot planes
+ax.plot_surface(xx, yy, z1, alpha=0.5, color="red")
+ax.plot_surface(xx, yy, z2, alpha=0.5, color="green")
+ax.plot_surface(xx, yy, z3, alpha=0.5, color="blue")
 \end{lstlisting}
 \end{frame}
 
@@ -215,27 +238,41 @@ y2 = -(b*x_vals + (b - 4*a)) / a
 \frametitle{Python code - To solve and plot }                
 \begin{lstlisting}
 
-plt.figure(figsize=(8,6))
-plt.plot(x_vals, y1, label='Equation 1: ax - by + (a+4b)=0')
-plt.plot(x_vals, y2, label='Equation 2: bx + ay + (b-4a)=0')
-plt.scatter(x, y, color='red', label=f'Solution (x, y)=({x:.2f}, {y:.2f})')
-plt.xlabel('x')
-plt.ylabel('y')
-plt.title('Solution of Equations using Cramer\'s Rule')
-plt.legend()
-plt.grid(True)
+# Plot solution point
+ax.scatter(X[0], X[1], X[2], color="black", s=80, label="Solution (x,y,z)")
+
+# Labels
+ax.set_xlabel("X-axis")
+ax.set_ylabel("Y-axis")
+ax.set_zlabel("Z-axis")
+ax.set_title("Intersection of 3 Planes")
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]                            
+\frametitle{Python code - To solve and plot }                
+\begin{lstlisting}
+
+# Legend
+custom_lines = [
+    plt.Line2D([0], [0], color="red", lw=4),
+    plt.Line2D([0], [0], color="green", lw=4),
+    plt.Line2D([0], [0], color="blue", lw=4),
+    plt.Line2D([0], [0], marker='o', color="w", markerfacecolor="black", markersize=8)
+]
+ax.legend(custom_lines, ["Plane 1", "Plane 2", "Plane 3", "Solution"])
 
 # Save figure
-plt.savefig("../figs/equations_solution.png", dpi=300)
+plt.savefig("../figs/planes_solution.png", dpi=300, bbox_inches="tight")
 plt.show()
-
 
 \end{lstlisting}
 
 \end{frame}
 \begin{frame}{Plot-Using  Python}
     \centering
-    \includegraphics[width=\columnwidth, height=0.8\textheight, keepaspectratio]{../figs/equations_solution.png}     
+    \includegraphics[width=\columnwidth, height=0.8\textheight, keepaspectratio]{../figs/planes_solution.png}     
 
 \end{frame}
 
@@ -244,35 +281,50 @@ plt.show()
 \begin{lstlisting}
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>   // <-- Needed for M_PI, cos, sin, sqrt, pow
+#include "/home/dhanush-kumar-a/ee1030-2025/ai25btech11010/matgeo/5.5.27/codes/libs/matfun.h"
 
-// Function to solve 2x2 linear system using Cramer's rule
-// Equations: 
-// (a*x - b*y) + (a+4b) = 0
-// (b*x + a*y) + (b-4a) = 0
-// Inputs: a, b
-// Outputs: x, y (via pointers)
-void solve_2x2(double a, double b, double *x, double *y) {
-    // Coefficient matrix
-    double det = a*a + b*b;  // det = a*a + b*b
+// Function to solve AX = C using inverse
+void solve_system(double **A, double **B, double **C, double *X) {
+    // Multiply A and B (3x3 * 3x3)
+    double **AB = Matmul(A, B, 3, 3, 3);
 
-    if(det == 0) {
-        // Singular system, return NaN
-        *x = 0.0/0.0;
-        *y = 0.0/0.0;
-        return;
-    }
+    // Check determinant via AB (AB = 67I)
+    double det = AB[0][0];  // should be 67
+    printf("det(A) via AB: %lf\n", det);
 \end{lstlisting}
 \end{frame}
-
 \begin{frame}[fragile]                            
 \frametitle{C code - Solving}                
 \begin{lstlisting}
-    // Determinants for x and y
-    double det_x = -((a + 4*b)*a + (b - 4*a)*b);
-    double det_y = -((a + 4*b)*b - (b - 4*a)*a);
 
-    *x = det_x / det;
-    *y = det_y / det;
+
+    // A inverse = (1/det) * B
+    double **Ainv = createMat(3, 3);
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            Ainv[i][j] = B[i][j] / det;
+        }
+    }
+
+    // X = A^-1 * C (3x3 * 3x1)
+    double **XC = Matmul(Ainv, C, 3, 3, 1);
+    for (int i = 0; i < 3; i++) {
+        X[i] = XC[i][0];
+    }
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]                            
+\frametitle{C code - Solving}                
+\begin{lstlisting}
+
+    // Free memory
+    for (int i = 0; i < 3; i++) free(AB[i]);
+    free(AB);
+    for (int i = 0; i < 3; i++) free(Ainv[i]);
+    free(Ainv);
+    for (int i = 0; i < 3; i++) free(XC[i]);
+    free(XC);
 }
 
 
@@ -283,21 +335,21 @@ void solve_2x2(double a, double b, double *x, double *y) {
 \begin{frame}[fragile]                              
 	\frametitle{Python code -Ploting the plane using c function} 
 	\begin{lstlisting}
+
 import ctypes
 import numpy as np
 import matplotlib.pyplot as plt
 import os
 
-# Ensure 'figs' folder exists
-os.makedirs("figs", exist_ok=True)
-
-# Load the shared library
+# Load the C shared library
 lib = ctypes.CDLL("./main.so")
 
-# Define argument types for ctypes
-lib.solve_2x2.argtypes = [
-    ctypes.c_double, ctypes.c_double,
-    ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_double)
+# Define function prototype
+lib.solve_system.argtypes = [
+    ctypes.POINTER(ctypes.POINTER(ctypes.c_double)),  # A
+    ctypes.POINTER(ctypes.POINTER(ctypes.c_double)),  # B
+    ctypes.POINTER(ctypes.POINTER(ctypes.c_double)),  # C
+    ctypes.POINTER(ctypes.c_double)                   # X
 ]
 \end{lstlisting}
 \end{frame}
@@ -307,22 +359,18 @@ lib.solve_2x2.argtypes = [
 	\frametitle{Python code -Ploting the plane using c function} 
 	\begin{lstlisting}
 
-# Read input coefficients
-a = float(input("Enter value of a: "))
-b = float(input("Enter value of b: "))
+# Matrices A, B, C
+A = np.array([[1,  2, -3],
+              [2,  3,  2],
+              [3, -3, -4]], dtype=np.double)
 
-# Prepare output variables
-x = ctypes.c_double()
-y = ctypes.c_double()
+B = np.array([[-6, 17, 13],
+              [14,  5,  -8],
+              [-15, 9, -1]], dtype=np.double)
 
-# Call C function
-lib.solve_2x2(a, b, ctypes.byref(x), ctypes.byref(y))
-
-# Extract values
-x_val = x.value
-y_val = y.value
-
-print(f"Solution from C function:\nx = {x_val}\ny = {y_val}")
+C = np.array([[-4],
+              [ 2],
+              [11]], dtype=np.double)
 \end{lstlisting}
 \end{frame}
 
@@ -331,16 +379,19 @@ print(f"Solution from C function:\nx = {x_val}\ny = {y_val}")
 	\frametitle{Python code -Ploting the plane using c function} 
 	\begin{lstlisting}
 
-# ---------- Plotting ----------
+# Convert numpy arrays to ctypes double**
+def to_c_matrix(arr):
+    return (ctypes.POINTER(ctypes.c_double) * arr.shape[0])(
+        *[row.ctypes.data_as(ctypes.POINTER(ctypes.c_double)) for row in arr]
+    )
 
-# Generate x values around the solution
-x_vals = np.linspace(x_val-5, x_val+5, 400)
+A_c = to_c_matrix(A)
+B_c = to_c_matrix(B)
+C_c = to_c_matrix(C)
 
-# Equation 1: (a*x - b*y) + (a+4b) = 0 -> y = (a*x + (a+4b))/b
-y1 = (a*x_vals + (a + 4*b)) / b
-
-# Equation 2: (b*x + a*y) + (b-4a) = 0 -> y = -(b*x + (b-4a))/a
-y2 = -(b*x_vals + (b - 4*a)) / a
+# Output vector X
+X = (ctypes.c_double * 3)()
+lib.solve_system(A_c, B_c, C_c, X)
 \end{lstlisting}
 \end{frame}
 
@@ -349,23 +400,60 @@ y2 = -(b*x_vals + (b - 4*a)) / a
 	\frametitle{Python code -Ploting the plane using c function} 
 	\begin{lstlisting}
 
-plt.figure(figsize=(8,6))
-plt.plot(x_vals, y1, label=f'Equation 1: {a}x - {b}y + ({a+4*b})=0')
-plt.plot(x_vals, y2, label=f'Equation 2: {b}x + {a}y + ({b-4*a})=0')
-plt.scatter(x_val, y_val, color='red', s=100, label=f'Solution ({x_val:.2f}, {y_val:.2f})')
-plt.xlabel('x')
-plt.ylabel('y')
-plt.title("Solution of 2x2 Linear System using C Function")
-plt.legend()
-plt.grid(True)
+# Convert solution to numpy for plotting
+solution = np.array([X[i] for i in range(3)])
+print("✅ Solution X =", solution)
+
+# -------------------- Plotting --------------------
+if not os.path.exists("figs"):
+    os.makedirs("figs")
+
+fig = plt.figure(figsize=(8,6))
+ax = fig.add_subplot(111, projection="3d")
+
+# Create a grid
+xx, yy = np.meshgrid(np.linspace(-10,10,50), np.linspace(-10,10,50))
+\end{lstlisting}
+\end{frame}
+
+	
+\begin{frame}[fragile]                              
+	\frametitle{Python code -Ploting the plane using c function} 
+	\begin{lstlisting}
+
+# Plane 1:  x + 2y - 3z = -4  -> z = (x + 2y + 4)/3
+z1 = (xx + 2*yy + 4) / 3
+ax.plot_surface(xx, yy, z1, alpha=0.5, color="cyan")
+
+# Plane 2: 2x + 3y + 2z = 2  -> z = (2 - 2x - 3y)/2
+z2 = (2 - 2*xx - 3*yy) / 2
+ax.plot_surface(xx, yy, z2, alpha=0.5, color="orange")
+
+# Plane 3: 3x - 3y - 4z = 11 -> z = (3*xx - 3*yy - 11)/4
+z3 = (3*xx - 3*yy - 11) / 4
+ax.plot_surface(xx, yy, z3, alpha=0.5, color="green")
+
+# Plot the solution point
+ax.scatter(solution[0], solution[1], solution[2], 
+           color="red", s=100, label=f"Solution {solution}")
+\end{lstlisting}
+\end{frame}
+
+	
+\begin{frame}[fragile]                              
+	\frametitle{Python code -Ploting the plane using c function} 
+	\begin{lstlisting}
+
+# Labels
+ax.set_xlabel("X-axis")
+ax.set_ylabel("Y-axis")
+ax.set_zlabel("Z-axis")
+ax.set_title("Solution of 3 Planes")
+ax.legend()
 
 # Save figure
-fig_path = os.path.join("../figs", "equations_solution1.png")
-plt.savefig(fig_path, dpi=300)
-print(f"Figure saved at: {fig_path}")
-
+plt.savefig("../figs/planes_solution1.png", dpi=300)
 plt.show()
-
 
 
 \end{lstlisting}                               
@@ -373,7 +461,7 @@ plt.show()
 
 \begin{frame}{Plot-Using  Python and C}
     \centering
-    \includegraphics[width=\columnwidth, height=0.8\textheight, keepaspectratio]{../figs/equations_solution1.png}     
+    \includegraphics[width=\columnwidth, height=0.8\textheight, keepaspectratio]{../figs/planes_solution1.png}     
 \end{frame}
 
 	
