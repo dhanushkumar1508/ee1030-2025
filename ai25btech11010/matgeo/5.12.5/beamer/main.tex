@@ -1,0 +1,243 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{txfonts}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{gvv}
+\usepackage{multicol}   % <-- Add this
+
+\usepackage{lmodern}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{mathtools}
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+
+
+
+\definecolor{bg}{gray}{0.95}
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{%
+  breakable=true,
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={%
+    linenos,
+    gobble=0,
+    breaklines=true,
+    breakafter=,,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={%
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+  #3,
+}
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!60!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+}
+
+
+\title 
+{5.12.5}
+\date{October 3, 2025}
+
+
+\author 
+{Dhanush Kumar A - AI25BTECH11010}
+
+
+
+\begin{document}
+\frame{\titlepage}
+\begin{frame}{Question}
+Solve for $x \in \mathbb{N}$ using matrices:
+$
+\det\myvec{x+3 & -2 \\ -3x & 2x} = 8
+$
+
+
+\end{frame}
+\begin{frame}{Solution}
+\begin{align}
+\det\myvec{x+3 & -2 \\ -3x & 2x} 
+&= (x+3)(2x) - (-2)(-3x) \\
+&= 2x^2 + 6x - 6x \\
+&= 2x^2 \\
+2x^2 &= 8 \\
+x^2 &= 4 \\
+x &= \pm 2 \\
+x &\in \mathbb{N} \implies x = 2
+\end{align}
+
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]                            
+\frametitle{Python code - To solve  }
+	\begin{lstlisting}
+import numpy as np
+from sympy import symbols, Eq, solve
+
+# Define the variable
+x = symbols('x')
+
+# Define the matrix
+A = np.array([[x + 3, -2],
+              [-3*x, 2*x]])
+
+# Compute the determinant using sympy
+det = (x + 3)*(2*x) - (-2)*(-3*x)
+
+# Equation: determinant = 8
+equation = Eq(det, 8)
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]                            
+\frametitle{Python code - To solve  }
+	\begin{lstlisting}
+
+# Solve the equation
+solutions = solve(equation, x)
+
+# Filter for natural numbers
+natural_solutions = [sol for sol in solutions if sol.is_real and sol > 0]
+
+print("All solutions:", solutions)
+print("Natural number solution(s):", natural_solutions)
+
+
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]                            
+\frametitle{Python code - Output }                
+\begin{lstlisting}
+All solutions: [-2, 2]
+Natural number solution(s): [2]
+
+
+\end{lstlisting}
+
+\end{frame}
+\begin{frame}[fragile]                            
+\frametitle{C code - Solving}
+	\begin{lstlisting}
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include "/home/dhanush-kumar-a/ee1030-2025/ai25btech11010/matgeo/5.12.5/codes/libs/matfun.h"
+
+
+// Function to solve determinant equation det([[x+3, -2], [-3*x, 2]]) = 8
+double solve_det_equation() {
+    double **A = createMat(2, 2);
+
+    // We'll solve the equation 2*x^2 = 8, but let's use matrix det
+    // Represent matrix as [[x+3, -2], [-3*x, 2]]
+    // We'll solve symbolically by using quadratic formula
+    double a = 2.0;   // coefficient of x^2
+    double b = 0.0;   // coefficient of x
+    double c = -8.0;  // constant term
+    double **roots = Matquad(a, b, c); // Solve 2*x^2 - 8 = 0
+\end{lstlisting}
+
+\end{frame}
+\begin{frame}[fragile]                            
+\frametitle{C code - Solving}
+	\begin{lstlisting}
+
+    double x = roots[0][0]; // Return positive root (x ∈ N)
+    
+    // Free allocated memory
+    free(A);
+    free(roots);
+
+    return x;
+}
+
+// Entry point for Python ctypes
+double solve_det_ctypes() {
+    return solve_det_equation();
+}
+
+
+
+\end{lstlisting}
+\end{frame}
+
+	
+\begin{frame}[fragile]                              
+	\frametitle{Python code -Solving using c Funtion} 
+	\begin{lstlisting}
+import ctypes
+
+lib = ctypes.CDLL('./libsolve_det.so')  # Shared library compiled from above C code
+lib.solve_det_ctypes.restype = ctypes.c_double
+
+x = lib.solve_det_ctypes()
+print("Solution x ∈ N:", x)
+
+
+\end{lstlisting}
+\end{frame}
+
+	
+\begin{frame}[fragile]                              
+	\frametitle{Python code-Output} 
+	\begin{lstlisting}
+Solution x ∈ N: 2.0
+
+\end{lstlisting}                               
+\end{frame}
+
+
+	
+
+
+\end{document}
+
+
+
+
