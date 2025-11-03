@@ -1,0 +1,87 @@
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+\usepackage{tfrupee}
+
+\setlength{\headheight}{1cm}
+\setlength{\headsep}{0mm}
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide}
+
+\graphicspath{{./figs/}}
+
+\begin{document}
+\title{12.88}
+\author{AI25BTECH11010 - Dhanush Kumar}
+\maketitle
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+
+\textbf{Question :}  
+The eigenvalues of a $2 \times 2$ matrix $\vec{X}$ are $-2$ and $-3$.  
+Find the eigenvalues of the matrix $(\vec{X} + \vec{I})^{-1}(\vec{X} + 5\vec{I})$.
+\begin{enumerate}[label=(\alph*)]}
+		\begin{multicols}{2}
+    \item $-3, -4$
+    \item $-1, -2$
+    \item $-1, -3$
+    \item $-2, -4$
+ \end{multicols}
+\end{enumerate}
+
+\textbf{Solution:}
+
+\begin{align}
+\text{Let } \vec{X}\vec{v} &= \lambda \vec{v}, \text{ where } \vec{v} \text{ is an eigenvector of } \vec{X}. \\[6pt]
+(\vec{X} + \vec{I})^{-1}(\vec{X} + 5\vec{I})\vec{v} 
+&= (\vec{X} + \vec{I})^{-1}\big[(\vec{X} + \vec{I}) + 4\vec{I}\big]\vec{v} \\[4pt]
+&= (\vec{X} + \vec{I})^{-1}(\vec{X} + \vec{I})\vec{v} + 4(\vec{X} + \vec{I})^{-1}\vec{v} \\[4pt]
+&= \vec{v} + 4(\vec{X} + \vec{I})^{-1}\vec{v}.
+\end{align}
+
+Since
+\begin{align}
+(\vec{X} + \vec{I})\vec{v} &= (\lambda + 1)\vec{v}, \\[4pt]
+\Rightarrow (\vec{X} + \vec{I})^{-1}\vec{v} &= \frac{1}{\lambda + 1}\vec{v}.
+\end{align}
+
+Substitute this into the earlier expression:
+\begin{align}
+(\vec{X} + \vec{I})^{-1}(\vec{X} + 5\vec{I})\vec{v} 
+&= \left( 1 + \frac{4}{\lambda + 1} \right)\vec{v} \\[4pt]
+&= \frac{\lambda + 5}{\lambda + 1}\vec{v}.
+\end{align}
+
+Hence, each eigenvalue $\lambda$ of $\vec{X}$ maps to
+\begin{align}
+\mu = \frac{\lambda + 5}{\lambda + 1}.
+\end{align}
+
+For the given eigenvalues of $\vec{X}$:
+\begin{align}
+\lambda_1 &= -2, \quad \lambda_2 = -3,
+\end{align}
+
+we get
+\begin{align}
+\mu_1 &= \frac{-2 + 5}{-2 + 1} = \frac{3}{-1} = -3, \\[4pt]
+\mu_2 &= \frac{-3 + 5}{-3 + 1} = \frac{2}{-2} = -1.
+\end{align}
+
+\boxed{\text{Eigenvalues of } (X + I)^{-1}(X + 5I) \text{ are } -3 \text{ and } -1.}
+
+\textbf{Answer: (c) } -1, -3
+\end{document}

@@ -1,0 +1,128 @@
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+\usepackage{tfrupee}
+
+\setlength{\headheight}{1cm}
+\setlength{\headsep}{0mm}
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide}
+
+\graphicspath{{./figs/}}
+
+\begin{document}
+\title{12.88}
+\author{AI25BTECH11010 - Dhanush Kumar}
+\maketitle
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+
+\textbf{Question}
+
+Consider a discrete-time LTI system with input  
+$x[n] = \delta[n] + \delta[n - 1]$  
+and impulse response  
+$h[n] = \delta[n] - \delta[n - 1]$.  
+
+The output of the system will be given by:
+\begin{multicols}{2}
+
+\begin{enumerate}
+    \item[(a)] $\delta[n] - \delta[n - 2]$
+    \item[(b)] $\delta[n] - \delta[n - 1]$
+    \item[(c)] $\delta[n - 1] + \delta[n - 2]$
+    \item[(d)] $\delta[n] + \delta[n - 1] + \delta[n - 2]$
+\end{enumerate}
+\end{multicols}
+
+\textbf{Solution}
+
+For an LTI system, the output is obtained by convolution:
+\begin{align}
+y[n] &= x[n] * h[n].
+\end{align}
+
+Given input and impulse response:
+\begin{align}
+x[n] &= \delta[n] + \delta[n-1], \\
+h[n] &= \delta[n] - \delta[n-1].
+\end{align}
+
+Representing them as vectors:
+\begin{align}
+\vec{x} &= 
+\myvec{x[0] \\ x[1]}
+= 
+\myvec{1 \\ 1}, &
+\vec{h} &= 
+\myvec{h[0] \\ h[1]}
+= 
+\myvec{1 \\ -1}.
+\end{align}
+
+Determine output length:
+\begin{align}
+N_y &= N_x + N_h - 1 = 2 + 2 - 1 = 3.
+\end{align}
+
+Form the convolution (Toeplitz) matrix using $\vec{h}$:
+\begin{align}
+\vec{H} &= 
+\myvec{
+1 & 0 \\
+-1 & 1 \\
+0 & -1
+}.
+\end{align}
+
+Compute the output vector:
+\begin{align}
+\vec{y} &= \vec{H}\vec{x} \nonumber \\
+&= 
+\myvec{
+1 & 0 \\
+-1 & 1 \\
+0 & -1
+}
+\myvec{1 \\ 1} \nonumber \\
+&= 
+\myvec{
+1(1) + 0(1) \\
+-1(1) + 1(1) \\
+0(1) - 1(1)
+} =
+\myvec{1 \\ 0 \\ -1}.
+\end{align}
+
+Thus, the output samples are:
+\begin{align}
+y[0] &= 1, &
+y[1] &= 0, &
+y[2] &= -1.
+\end{align}
+
+Hence, the output signal is:
+\begin{align}
+y[n] &= \delta[n] - \delta[n-2].
+\end{align}
+
+Final answer:
+\begin{align}
+\boxed{y[n] = \delta[n] - \delta[n-2] \quad \text{(Option (a))}}
+\end{align}
+
+\end{document}
+

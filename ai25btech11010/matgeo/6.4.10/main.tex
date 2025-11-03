@@ -1,0 +1,114 @@
+
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+\usepackage{tfrupee}
+
+\setlength{\headheight}{1cm}
+\setlength{\headsep}{0mm}
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide}
+
+\graphicspath{{./figs/}}
+
+\begin{document}
+\title{5.3.4}
+\author{AI25BTECH11010 - Dhanush Kumar}
+\maketitle
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+
+\textbf{Question}\\
+Find the shortest distance between the lines:\\
+$
+\frac{x - 1}{2} = \frac{y + 1}{3} = z, \quad 
+\frac{x + 1}{5} = \frac{y - 2}{1}, \ z = 2
+$
+
+\textbf{Solution:}
+
+The vector equations of the lines are
+\begin{align}
+\vec{r}_1 = \myvec{1 \\ -1 \\ 0} + k_1 \myvec{2 \\ 3 \\ 1} \\
+\vec{r}_2 = \myvec{-1 \\ 2 \\ 2} + k_2 \myvec{5 \\ 1 \\ 0}
+\end{align}
+
+Let 
+\begin{align}
+\vec{A} = \myvec{1 \\ -1 \\ 0}, \quad 
+\vec{B} = \myvec{-1 \\ 2 \\ 2}, \quad
+\vec{m}_1 = \myvec{2 \\ 3 \\ 1}, \quad 
+\vec{m}_2 = \myvec{5 \\ 1 \\ 0}
+\end{align}
+
+The shortest distance between two skew lines is obtained by solving
+\begin{align}
+(M^T M)\vec{K} = M^T(\vec{B} - \vec{A})
+\end{align}
+where 
+\begin{align}
+M = \myvec{\vec{m}_1 & -\vec{m}_2} 
+= \myvec{2 & -5 \\ 3 & -1 \\ 1 & 0}, \quad
+\vec{B} - \vec{A} = \myvec{-2 \\ 3 \\ 2}
+\end{align}
+
+Computing,
+\begin{align}
+M^T M = 
+\myvec{14 & -13 \\ -13 & 26}, \quad
+M^T(\vec{B} - \vec{A}) = 
+\myvec{7 \\ 7}
+\end{align}
+
+Hence,
+\begin{align}
+\myvec{14 & -13 \\ -13 & 26}\vec{K} = \myvec{7 \\ 7}
+\end{align}
+
+Solving,
+\begin{align}
+\vec{K} = \myvec{k_1 \\ k_2} 
+= \myvec{\frac{7}{5} \\[4pt] \frac{63}{65}}
+\end{align}
+
+Substitute to find the points on the lines:
+\begin{align}
+\vec{x}_1 = \vec{A} + k_1 \vec{m}_1 
+= \myvec{1 \\ -1 \\ 0} + \frac{7}{5}\myvec{2 \\ 3 \\ 1}
+= \myvec{\frac{19}{5} \\[4pt] \frac{16}{5} \\[4pt] \frac{7}{5}}
+\end{align}
+
+\begin{align}
+\vec{x}_2 = \vec{B} + k_2 \vec{m}_2 
+= \myvec{-1 \\ 2 \\ 2} + \frac{63}{65}\myvec{5 \\ 1 \\ 0}
+= \myvec{\frac{50}{13} \\[4pt] \frac{193}{65} \\[4pt] 2}
+\end{align}
+
+Therefore, the minimum distance is
+\begin{align}
+d = \norm{\vec{x}_1 - \vec{x}_2} 
+= \left\|\myvec{\frac{19}{5} - \frac{50}{13} \\[4pt]
+\frac{16}{5} - \frac{193}{65} \\[4pt]
+\frac{7}{5} - 2}\right\| 
+= \frac{9}{\sqrt{195}}
+\end{align}
+
+\begin{center}
+\fbox{\textbf{Minimum Distance between the given Lines = $\dfrac{9}{\sqrt{195}}$ units}}
+\end{center}
+
+\end{document}
+
